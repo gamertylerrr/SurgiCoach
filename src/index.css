@@ -2,12 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'Roboto';
-  src: url('./assets/Roboto-Black.ttf');
-}
-
 * {
   font-family: 'Roboto', sans-serif;
-  background-color: #e5e5e5;
+  color: #2b426a;
+}
+
+.big-bg {
+  background-image: url('./assets/Group\ 11.svg');
+  height: 100vh;
+  width: 100vw;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
