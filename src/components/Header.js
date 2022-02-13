@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <>
-      <nav className="bg-gray-100 bg-transparent p-4 md:py-8 md:px-16">
+      <nav className="bg-gray-100 bg-transparent p-4 md:py-8 lg:px-16">
         <div className="mx-auto ">
           <div className="flex justify-between">
             <div className="flex space-x-4">
@@ -24,7 +24,7 @@ export default function Header() {
               <div className="hidden md:flex items-center space-x-1"></div>
             </div>
 
-            <div className="hidden md:flex items-center lg:space-x-24 ">
+            <div className="hidden md:flex items-center  lg:space-x-12">
               <Link
                 to=""
                 className="py-5 px-3 uppercase font-black text-sm lg:text-lg "

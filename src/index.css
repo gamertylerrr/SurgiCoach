@@ -7,10 +7,17 @@
   color: #2b426a;
 }
 
-.big-bg {
-  background-image: url('./assets/Group\ 11.svg');
+@media (min-width: 768px) {
+  .custom-login-bg {
+    background-image: url('./assets/Group\ 11.svg') !important;
+    background-size: 100% 100%;
+  }
+}
+.custom-login-bg {
   height: 100vh;
   width: 100vw;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-image: url('./assets/icon.svg');
+  background-position-y: bottom;
+  background-position-x: center;
 }
