@@ -21,3 +21,35 @@
   background-position-y: bottom;
   background-position-x: center;
 }
+
+.custom-input {
+  background: #d5f0ff;
+  border: 1px solid #2b426a;
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 337px;
+}
+
+.custom-btn {
+  background: #2b426a;
+  border: 1px solid #2b426a;
+  border-radius: 5px;
+  width: 337px;
+}
+
+input::placeholder {
+  color: #2b426a;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #2b426a;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #2b426a;
+}
