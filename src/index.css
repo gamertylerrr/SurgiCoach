@@ -27,14 +27,14 @@
   border: 1px solid #2b426a;
   box-sizing: border-box;
   border-radius: 5px;
-  width: 337px;
+  width: 100%;
 }
 
 .custom-btn {
   background: #2b426a;
   border: 1px solid #2b426a;
   border-radius: 5px;
-  width: 337px;
+  width: 100%;
 }
 
 input::placeholder {
