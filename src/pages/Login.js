@@ -35,7 +35,7 @@ export default function Login() {
           </form>
           <p className="font-black text-xl uppercase mt-8">NEW PROVIDER</p>
           <button
-            className="custom-btn text-white m-2 px-6 py-2"
+            className="custom-btn text-white  px-6 py-2"
             onClick={() => {
               history.push('/signup');
             }}

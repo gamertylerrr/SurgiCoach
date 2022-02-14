@@ -74,13 +74,14 @@ export default function Signup() {
                 placeholder="confirm password"
               />
             </div>
-
-            <button
-              type="submit"
-              className="custom-btn text-white m-2 px-6 py-2"
-            >
-              REGISTER
-            </button>
+            <div className="px-2">
+              <button
+                type="submit"
+                className="custom-btn text-white my-2 px-6 py-2"
+              >
+                REGISTER
+              </button>
+            </div>
           </form>
         </div>
       </div>
