@@ -16,7 +16,7 @@ export default function Header() {
           <div className="flex justify-between">
             <div className="flex space-x-4">
               <div>
-                <Link to="#" className="hidden md:block">
+                <Link to="/login" className="hidden md:block">
                   <img src={Logo} alt="" />
                 </Link>
               </div>
@@ -87,6 +87,11 @@ export default function Header() {
           </Link>
         </div>
       </nav>
+      <div className="w-64 mx-auto my-6 md:hidden">
+        <Link to="/login" className="">
+          <img src={Logo} alt="" />
+        </Link>
+      </div>
     </>
   );
 }
