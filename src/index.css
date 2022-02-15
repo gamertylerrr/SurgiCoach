@@ -12,6 +12,10 @@
     background-image: url('./assets/Group\ 11.svg') !important;
     background-size: 100% 100%;
   }
+  .scroll-menu {
+    max-height: 500px;
+    overflow-y: scroll;
+  }
 }
 .custom-login-bg {
   height: 100vh;
@@ -61,4 +65,18 @@ input::placeholder {
 
 .procedure-number {
   background: #d5f0ff;
+}
+
+::-webkit-scrollbar {
+  width: 26px;
+}
+::-webkit-scrollbar-track {
+  background: #2b426a;
+  border-left: 12px solid white;
+  border-right: 12px solid white;
+}
+::-webkit-scrollbar-thumb {
+  background-repeat: no-repeat;
+  background-image: url('./assets/Group\ 10.svg');
+  background-position: center;
 }
