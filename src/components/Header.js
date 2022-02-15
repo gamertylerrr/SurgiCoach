@@ -26,19 +26,19 @@ export default function Header() {
 
             <div className="hidden md:flex items-center  lg:space-x-12">
               <Link
-                to=""
+                to="/myprocedure"
                 className="py-5 px-3 uppercase font-black text-sm lg:text-lg "
               >
                 My Procedure
               </Link>
               <Link
-                to=""
+                to="/mypatient"
                 className="py-5 px-3 uppercase font-black text-sm lg:text-lg "
               >
                 My Patients
               </Link>
               <Link
-                to=""
+                to="/login"
                 className="py-5 px-3 uppercase font-black text-sm lg:text-lg "
               >
                 Login
@@ -68,19 +68,19 @@ export default function Header() {
 
         <div className="mobile-menu hidden md:hidden">
           <Link
-            to=""
+            to="/myprocedure"
             className="block py-2 px-4 text-sm hover:bg-gray-200 uppercase font-black text-lg "
           >
             My Procedure
           </Link>
           <Link
-            to=""
+            to="/mypatient"
             className="block py-2 px-4 text-sm hover:bg-gray-200 uppercase font-black text-lg "
           >
             My Patients
           </Link>
           <Link
-            to=""
+            to="/login"
             className="block py-2 px-4 text-sm hover:bg-gray-200 uppercase font-black text-lg "
           >
             Login

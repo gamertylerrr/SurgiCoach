@@ -53,3 +53,12 @@ input::placeholder {
   /* Microsoft Edge */
   color: #2b426a;
 }
+
+.procedure-wrapper {
+  border: 1px solid #2b426a;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.procedure-number {
+  background: #d5f0ff;
+}
