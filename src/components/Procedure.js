@@ -1,6 +1,8 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function Procedure({ data, number }) {
+  const history = useHistory();
   return (
     <div>
       <div className="procedure-wrapper flex flex-row">
@@ -12,7 +14,10 @@ export default function Procedure({ data, number }) {
         </div>
       </div>
       <div className="flex flex-row justify-center items-center my-2">
-        <button className="secondary-btn py-0 px-6 mx-2 text-center w-24 text-white">
+        <button
+          className="secondary-btn py-0 px-6 mx-2 text-center w-24 text-white"
+          onClick={() => history.push('/editprocedure')}
+        >
           Edit
         </button>
         <button className="secondary-btn py-0 px-6 mx-2 text-center w-24 text-white">
