@@ -85,3 +85,9 @@ input::placeholder {
   background: #2b426a;
   border-radius: 5px;
 }
+
+.preview-box {
+  background: #ffffff;
+  border: 1px solid #2b426a;
+  border-radius: 5px;
+}
