@@ -80,3 +80,8 @@ input::placeholder {
   background-image: url('./assets/Group\ 10.svg');
   background-position: center;
 }
+
+.secondary-btn {
+  background: #2b426a;
+  border-radius: 5px;
+}
