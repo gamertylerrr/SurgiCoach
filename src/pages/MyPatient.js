@@ -13,15 +13,15 @@ export default function MyPatient() {
     <div className="custom-login-bg relative ">
       <Header />
       <div className="container mx-auto w-4/5 md:w-11/12 lg:w-45 mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 ">
+        <div className="grid grid-cols-1 md:grid-cols-5 md:gap-12 ">
           <div className="col-span-2">
             <p className="font-black text-xl uppercase ">My patients</p>
             <div
               className="flex items-center py-4 "
               style={{ borderBottom: '1px solid #2b426a' }}
             >
-              <p className="uppercase text-sm mr-2">set date range :</p>
-              <div className="flex">
+              <p className="uppercase text-sm mr-2 ">set date range :</p>
+              <div className="flex flex-wrap lg:flex-nowrap items-center justify-center">
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
@@ -30,7 +30,7 @@ export default function MyPatient() {
                 <DatePicker
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
-                  className="text-center custom-border mx-2 rounded-md py-1 w-32"
+                  className="text-center custom-border lg:mx-2 rounded-md py-1 w-32 my-2 lg:my-0"
                 />
               </div>
             </div>
