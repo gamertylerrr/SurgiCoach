@@ -38,41 +38,37 @@ export default function Signup() {
           console.log(percentage);
         },
         (err) => {
-          // setError(err);
           console.log(err);
         },
         async () => {
           url = await storageRef.getDownloadURL();
-          // const createdAt = timestamp();
-          // await collectionRef.add({ url, createdAt });
-          // setUrl(url);
+          try {
+            setError('');
+            setLoading(true);
+            const response = await signup(
+              emailRef.current.value,
+              passwordRef.current.value
+            );
+            console.log(response.user.uid);
+            db.collection('providers').doc(response.user.uid).set({
+              name: signupForm['name'].value,
+              email: emailRef.current.value,
+              practise: signupForm['practise'].value,
+              specialty: signupForm['specialty'].value,
+              state: signupForm['state'].value,
+              photoUrl: url,
+            });
+            history.push('/dashboard');
+          } catch {
+            setError('Failed to create an account');
+          }
         }
       );
     } catch (err) {
       console.log(err);
       setError('Error while file Upload');
-      return;
     }
 
-    try {
-      setError('');
-      setLoading(true);
-      const response = await signup(
-        emailRef.current.value,
-        passwordRef.current.value
-      );
-      console.log(response.user.uid);
-      db.collection('providers').doc(response.user.uid).set({
-        name: signupForm['name'].value,
-        email: emailRef.current.value,
-        practise: signupForm['practise'].value,
-        specialty: signupForm['specialty'].value,
-        state: signupForm['state'].value,
-      });
-      // history.push('/dashboard');
-    } catch {
-      setError('Failed to create an account');
-    }
     setLoading(false);
   };
 
