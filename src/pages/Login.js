@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -6,14 +6,26 @@ import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
   const history = useHistory();
+  const emailRef = useRef();
   const passwordRef = useRef();
-  const { currentUser } = useAuth();
+  const { currentUser, login } = useAuth();
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (currentUser) {
-      history.push('/mypatient');
+      history.push('/myprocedure');
     }
   }, []);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      await login(emailRef.current.value, passwordRef.current.value);
+      history.push('/myprocedure');
+    } catch {
+      setError('Failed to login');
+    }
+  };
 
   return (
     <div className="custom-login-bg relative ">
@@ -21,12 +33,14 @@ export default function Login() {
       <div className="mx-auto flex justify-center text-center md:h-4/6 items-center ">
         <div>
           <p className="font-black text-xl uppercase mb-8">PROVIDER LOGIN</p>
-          <form action="" id="login-form">
+          {error && <p>{error}</p>}
+          <form action="" id="login-form" onSubmit={handleLogin}>
             <div className="flex flex-col items-center justify-between">
               <input
-                type="text"
+                type="email"
                 className="custom-input m-2 px-6 py-2"
-                placeholder="username"
+                placeholder="email"
+                ref={emailRef}
               />
               <input
                 type="password"
