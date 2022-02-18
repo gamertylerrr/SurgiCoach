@@ -22,7 +22,11 @@ export default function Signup() {
     try {
       setError('');
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      const response = await signup(
+        emailRef.current.value,
+        passwordRef.current.value
+      );
+      console.log(response.user.uid);
       history.push('/dashboard');
     } catch {
       setError('Failed to create an account');
