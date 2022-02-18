@@ -7,6 +7,7 @@ import {
 import { AuthProvider } from './context/AuthContext';
 import EditProcedure from './pages/EditProcedure';
 import Login from './pages/Login';
+import MyPatient from './pages/MyPatient';
 import MyProcedure from './pages/MyProcedure';
 import Signup from './pages/Signup';
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/myprocedure" component={MyProcedure} />
           <Route path="/editprocedure" component={EditProcedure} />
+          <Route path="/mypatient" component={MyPatient} />
           {/* end redirect route on not found */}
           <Route>
             <Redirect to="/login" />

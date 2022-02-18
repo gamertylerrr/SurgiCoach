@@ -4,12 +4,12 @@ export default function Message() {
   return (
     <div className="message-wrapper p-2">
       <div className="flex items-center justify-between">
-        <p className="font-black text-lg uppercase ">Message 1</p>
+        <p className="font-black text-sm md:text-lg uppercase ">Message 1</p>
         <div className="flex flex-row justify-center items-center my-3">
-          <button className="secondary-btn py-0 px-4 mx-2 text-center w-20 text-white">
+          <button className="secondary-btn py-0 px-3 md:px-4 mx-2 text-center md:w-20 text-white">
             Edit
           </button>
-          <button className="secondary-btn py-0 px-4 mx-2 text-center w-20 text-white">
+          <button className="secondary-btn py-0 px-3 md:px-4 mx-2 text-center md:w-20 text-white">
             Delete
           </button>
         </div>
