@@ -4,6 +4,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import EditProcedure from './pages/EditProcedure';
 import Login from './pages/Login';
@@ -18,9 +19,9 @@ function App() {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route path="/myprocedure" component={MyProcedure} />
-          <Route path="/editprocedure" component={EditProcedure} />
-          <Route path="/mypatient" component={MyPatient} />
+          <PrivateRoute path="/myprocedure" component={MyProcedure} />
+          <PrivateRoute path="/editprocedure" component={EditProcedure} />
+          <PrivateRoute path="/mypatient" component={MyPatient} />
           {/* end redirect route on not found */}
           <Route>
             <Redirect to="/login" />
