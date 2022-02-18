@@ -1,22 +1,40 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { useAuth } from '../context/AuthContext';
 
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
   const history = useHistory();
+  const { signup, currentUser } = useAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    history.push('/dashboard');
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return setError('Password does not match');
+    }
+
+    try {
+      setError('');
+      setLoading(true);
+      signup(emailRef.current.value, passwordRef.current.value);
+      // history.push('/dashboard');
+    } catch {
+      setError('Failed to create an account');
+    }
+    setLoading(false);
   };
 
   return (
     <div className="custom-login-bg relative ">
       <Header />
+      {currentUser && currentUser.email}
+      {error && <p>{error}</p>}
       <div className="mx-auto flex justify-center text-center md:h-4/6 items-center ">
         <div>
           <p className="font-black text-xl uppercase mb-8">REGISTRATION</p>
@@ -78,6 +96,7 @@ export default function Signup() {
               <button
                 type="submit"
                 className="custom-btn text-white my-2 px-6 py-2"
+                disabled={loading}
               >
                 REGISTER
               </button>
