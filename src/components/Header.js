@@ -1,9 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import Logo from '../assets/Logo.svg';
+import { useAuth } from '../context/AuthContext';
 
 export default function Header() {
+  const { currentUser, logout } = useAuth();
+  const [error, setError] = useState('');
+  const history = useHistory();
+  const handleLogout = async () => {
+    setError('');
+    try {
+      await logout();
+      history.push('/login');
+    } catch {
+      setError('Failed to Logout');
+    }
+  };
+
   const handleToggle = () => {
     const menu = document.querySelector('.mobile-menu');
     menu.classList.toggle('hidden');
@@ -12,6 +25,7 @@ export default function Header() {
   return (
     <>
       <nav className="bg-gray-100 bg-transparent p-4 md:py-8 lg:px-16">
+        {error && <p>{error}</p>}
         <div className="mx-auto ">
           <div className="flex justify-between">
             <div className="flex space-x-4">
@@ -37,12 +51,22 @@ export default function Header() {
               >
                 My Patients
               </Link>
-              <Link
-                to="/login"
-                className="py-5 px-3 uppercase font-black text-sm lg:text-lg "
-              >
-                Login
-              </Link>
+              {currentUser ? (
+                <Link
+                  to="#"
+                  className="py-5 px-3 uppercase font-black text-sm lg:text-lg "
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Link>
+              ) : (
+                <Link
+                  to="/login"
+                  className="py-5 px-3 uppercase font-black text-sm lg:text-lg "
+                >
+                  Login
+                </Link>
+              )}
             </div>
 
             <div className="md:hidden flex items-center">
@@ -79,12 +103,22 @@ export default function Header() {
           >
             My Patients
           </Link>
-          <Link
-            to="/login"
-            className="block py-2 px-4 text-sm hover:bg-gray-200 uppercase font-black text-lg "
-          >
-            Login
-          </Link>
+          {currentUser ? (
+            <Link
+              to="#"
+              className="block py-2 px-4 text-sm hover:bg-gray-200 uppercase font-black text-lg "
+              onClick={handleLogout}
+            >
+              Logout
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="block py-2 px-4 text-sm hover:bg-gray-200 uppercase font-black text-lg "
+            >
+              Login
+            </Link>
+          )}
         </div>
       </nav>
       <div className="w-64 mx-auto my-6 md:hidden">
