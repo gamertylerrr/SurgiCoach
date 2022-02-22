@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
@@ -41,12 +41,14 @@ export default function Login() {
                 className="custom-input m-2 px-6 py-2"
                 placeholder="email"
                 ref={emailRef}
+                required
               />
               <input
                 type="password"
                 className="custom-input m-2 px-6 py-2"
                 placeholder="password"
                 ref={passwordRef}
+                required
               />
               <button
                 type="submit"
@@ -54,6 +56,9 @@ export default function Login() {
               >
                 LOGIN
               </button>
+              <Link to="/reset" className="underline">
+                Forgot Password ?
+              </Link>
             </div>
           </form>
           <p className="font-black text-xl uppercase mt-8">NEW PROVIDER</p>

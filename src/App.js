@@ -10,6 +10,7 @@ import EditProcedure from './pages/EditProcedure';
 import Login from './pages/Login';
 import MyPatient from './pages/MyPatient';
 import MyProcedure from './pages/MyProcedure';
+import PasswordReset from './pages/PasswordReset';
 import Signup from './pages/Signup';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/reset" component={PasswordReset} />
           <PrivateRoute path="/myprocedure" component={MyProcedure} />
           <PrivateRoute path="/editprocedure" component={EditProcedure} />
           <PrivateRoute path="/mypatient" component={MyPatient} />
