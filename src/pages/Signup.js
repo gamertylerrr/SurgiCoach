@@ -66,7 +66,7 @@ export default function Signup() {
       );
     } catch (err) {
       console.log(err);
-      setError('Error while file Upload');
+      setError('Failed to register');
     }
 
     setLoading(false);
@@ -75,7 +75,7 @@ export default function Signup() {
   return (
     <div className="custom-login-bg relative ">
       <Header />
-      {currentUser && currentUser.email}
+
       {error && <p>{error}</p>}
       <div className="mx-auto flex justify-center text-center md:h-4/6 items-center ">
         <div>
