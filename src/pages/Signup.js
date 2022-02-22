@@ -37,10 +37,10 @@ export default function Signup() {
         passwordRef.current.value
       );
       console.log(response.user.uid);
-      getDownloadURL(fileRef).then((url) => {
-        console.log(url);
-        uploadBytes(fileRef, file).then((snapshot) => {
-          console.log('Uploaded a blob or file!');
+      uploadBytes(fileRef, file).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+        getDownloadURL(fileRef).then((url) => {
+          console.log(url);
           db.collection('providers').doc(response.user.uid).set({
             name: signupForm['name'].value,
             email: emailRef.current.value,
@@ -63,9 +63,9 @@ export default function Signup() {
     <div className="custom-login-bg relative ">
       <Header />
 
-      {error && <p>{error}</p>}
       <div className="mx-auto flex justify-center text-center md:h-4/6 items-center ">
         <div>
+          {error && <p className="mb-4 font-black text-lg">{error}</p>}
           <p className="font-black text-xl uppercase mb-8">REGISTRATION</p>
           <form action="" id="signup-form" onSubmit={handleSignUp}>
             <div className="flex flex-col md:flex-row items-center justify-between">
