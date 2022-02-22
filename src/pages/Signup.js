@@ -44,7 +44,7 @@ export default function Signup() {
           db.collection('providers').doc(response.user.uid).set({
             name: signupForm['name'].value,
             email: emailRef.current.value,
-            practise: signupForm['practise'].value,
+            practice: signupForm['practice'].value,
             specialty: signupForm['specialty'].value,
             state: signupForm['state'].value,
             photoUrl: url,
@@ -79,8 +79,8 @@ export default function Signup() {
               <input
                 type="text"
                 className="custom-input m-2 px-6 py-2"
-                placeholder="name of practise"
-                name="practise"
+                placeholder="name of practice"
+                name="practice"
                 required
               />
             </div>
