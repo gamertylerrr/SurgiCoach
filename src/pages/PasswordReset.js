@@ -22,12 +22,13 @@ export default function PasswordReset() {
   };
 
   return (
-    <div className="custom-login-bg relative ">
+    <div className="custom-login-bg relative text-center ">
       <Header />
+
       <div className="mx-auto flex justify-center text-center md:h-4/6 items-center ">
-        {message && <p>{message}</p>}
-        {error && <p>{error}</p>}
         <div>
+          {message && <p className="mb-4 font-black text-lg">{message}</p>}
+          {error && <p className="mb-4 font-black text-lg">{error}</p>}
           <p className="font-black text-xl uppercase mb-8">password reset</p>
           <form action="" id="login-form" onSubmit={handleReset}>
             <div className="flex flex-col items-center justify-between">

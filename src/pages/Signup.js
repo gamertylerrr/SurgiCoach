@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
-import { db, storage } from '../firebase';
+import { db } from '../firebase';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
 export default function Signup() {
   const emailRef = useRef();
@@ -23,49 +24,35 @@ export default function Signup() {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    let url;
+    const storage = getStorage();
+    const fileRef = ref(storage, file.name);
     const signupForm = document.querySelector('#signup-form');
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       return setError('Password does not match');
     }
 
     try {
-      const storageRef = storage.ref(file.name);
-      storageRef.put(file).on(
-        'state_changed',
-        (snap) => {
-          let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-          console.log(percentage);
-        },
-        (err) => {
-          console.log(err);
-        },
-        async () => {
-          url = await storageRef.getDownloadURL();
-          try {
-            setError('');
-            setLoading(true);
-            const response = await signup(
-              emailRef.current.value,
-              passwordRef.current.value
-            );
-            console.log(response.user.uid);
-            db.collection('providers').doc(response.user.uid).set({
-              name: signupForm['name'].value,
-              email: emailRef.current.value,
-              practise: signupForm['practise'].value,
-              specialty: signupForm['specialty'].value,
-              state: signupForm['state'].value,
-              photoUrl: url,
-            });
-            history.push('/dashboard');
-          } catch {
-            setError('Failed to create an account');
-          }
-        }
+      const response = await signup(
+        emailRef.current.value,
+        passwordRef.current.value
       );
-    } catch (err) {
-      console.log(err);
+      console.log(response.user.uid);
+      getDownloadURL(fileRef).then((url) => {
+        console.log(url);
+        uploadBytes(fileRef, file).then((snapshot) => {
+          console.log('Uploaded a blob or file!');
+          db.collection('providers').doc(response.user.uid).set({
+            name: signupForm['name'].value,
+            email: emailRef.current.value,
+            practise: signupForm['practise'].value,
+            specialty: signupForm['specialty'].value,
+            state: signupForm['state'].value,
+            photoUrl: url,
+          });
+          history.push('/dashboard');
+        });
+      });
+    } catch {
       setError('Failed to register');
     }
 
