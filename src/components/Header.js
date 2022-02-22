@@ -43,7 +43,7 @@ export default function Header() {
                 to="/myprocedure"
                 className="py-5 px-3 uppercase font-black text-sm lg:text-lg "
               >
-                My Procedure
+                My Procedures
               </Link>
               <Link
                 to="/mypatient"
