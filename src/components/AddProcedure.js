@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 
-export default function AddProcedure() {
+export default function AddProcedure({ getProcedures }) {
   const [messageType, setMessageType] = useState();
   const [file, setFile] = useState();
   const [error, setError] = useState('');
@@ -42,9 +42,9 @@ export default function AddProcedure() {
               videoUrl: url,
               procedure: procedure.id,
             });
-            // history.push('/dashboard');
           });
         });
+        getProcedures();
         return;
       }
       console.log('no file');
@@ -55,6 +55,7 @@ export default function AddProcedure() {
         text: procedureForm['text'].value,
         procedure: procedure.id,
       });
+      getProcedures();
     } catch {
       setError('Failed to Add Procedure');
     }
@@ -67,7 +68,7 @@ export default function AddProcedure() {
         <div className="flex flex-col items-center justify-between">
           <input
             type="text"
-            className="custom-input m-2 px-6 py-2"
+            className="custom-input m-2 px-6 py-2 text-center"
             placeholder="procedure name"
             name="name"
           />
