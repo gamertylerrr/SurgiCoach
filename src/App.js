@@ -22,7 +22,11 @@ function App() {
           <Route path="/signup" component={Signup} />
           <Route path="/reset" component={PasswordReset} />
           <PrivateRoute path="/myprocedure" component={MyProcedure} />
-          <PrivateRoute path="/editprocedure/:id" component={EditProcedure} />
+          <PrivateRoute
+            exact
+            path="/editprocedure/:id"
+            component={EditProcedure}
+          />
           <PrivateRoute path="/mypatient" component={MyPatient} />
           {/* end redirect route on not found */}
           <Route>

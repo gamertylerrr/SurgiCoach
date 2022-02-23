@@ -106,9 +106,9 @@ export default function AddProcedure({ getProcedures }) {
               {file ? file.name : 'UPLOAD VIDEO'}
             </label>
             <input
-              id="files"
+              id="video"
               className="hidden"
-              type="file"
+              type="video"
               onChange={handleFile}
               required
             />

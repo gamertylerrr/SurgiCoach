@@ -14,7 +14,7 @@ const customStyles = {
   },
 };
 
-export default function Message() {
+export default function Message({ data, setError, getMessages, index }) {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -28,13 +28,15 @@ export default function Message() {
     <>
       <div className="message-wrapper p-2">
         <div className="flex items-center justify-between">
-          <p className="font-black text-sm md:text-lg uppercase ">Message 1</p>
+          <p className="font-black text-sm md:text-lg uppercase ">
+            Message {index}
+          </p>
           <div className="flex flex-row justify-center items-center my-3">
-            <button className="secondary-btn py-0 px-3 md:px-4 mx-2 text-center md:w-20 text-white">
+            <button className="secondary-btn py-0 px-3 md:px-4 mx-2 text-center text-white">
               Edit
             </button>
             <button
-              className="secondary-btn py-0 px-3 md:px-4 mx-2 text-center md:w-20 text-white"
+              className="secondary-btn py-0 px-3 md:px-4 mx-2 text-center text-white"
               onClick={openModal}
             >
               Delete
@@ -42,13 +44,11 @@ export default function Message() {
           </div>
         </div>
         <div>
-          <p className="mb-2 text-lg">1 DAY BEFORE PROCEDURE</p>
-          <p className="text-base">
-            Tomorrow is your ACL Reconstruction. Do your best to get a full
-            night’s rest to get ready, and please remember not to eat or drink
-            after midnight tonight. We’re very much looking forward to taking
-            care of you tomorrow.
+          <p className="mb-2 text-lg">
+            {data.days} DAY {data.isBefore ? 'BEFORE' : 'AFTER'} PROCEDURE
           </p>
+          {data.type == 'video' && <video src={data.videoUrl}></video>}
+          {data.type == 'text' && <p className="text-base">{data.text}</p>}
         </div>
       </div>
       <Modal
