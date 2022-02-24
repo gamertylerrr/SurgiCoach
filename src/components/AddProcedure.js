@@ -41,6 +41,7 @@ export default function AddProcedure({ getProcedures }) {
               isBefore: procedureForm['isBefore'].value,
               videoUrl: url,
               procedure: procedure.id,
+              text: procedureForm['text'].value,
             });
           });
         });
@@ -100,40 +101,36 @@ export default function AddProcedure({ getProcedures }) {
             <option value={false}>After Procedure</option>
           </select>
         </div>
-        {messageType && messageType == 'file' && (
-          <div className="custom-input my-2 px-6 py-2">
-            <label for="files" class="btn">
-              {file ? file.name : 'UPLOAD VIDEO'}
-            </label>
-            <input
-              id="video"
-              className="hidden"
-              type="video"
-              onChange={handleFile}
-              required
-            />
-          </div>
-        )}
-        {messageType && messageType == 'text' && (
-          <div className="flex flex-col items-center justify-between">
-            {/* <input
-              type="text"
-              className="custom-input m-2 px-6 py-2"
-              placeholder="Add text"
-              required
-            /> */}
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              className="custom-input m-2 px-6 py-2"
-              placeholder="Add text"
-              required
-              name="text"
-            ></textarea>
-          </div>
-        )}
+        <div className="custom-input my-2 px-6 py-2">
+          <label for="files" class="btn">
+            {file ? file.name : null}
+            {!file && messageType == 'video'
+              ? 'UPLOAD VIDEO'
+              : 'UPLOAD VIDEO (OPTIONAL)'}
+          </label>
+          <input
+            id="video"
+            className="hidden"
+            type="file "
+            onChange={handleFile}
+            required={messageType == 'video' ? true : false}
+          />
+        </div>
+
+        <div className="flex flex-col items-center justify-between">
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            className="custom-input m-2 px-6 py-2"
+            placeholder={
+              messageType == 'text' ? 'ADD TEXT' : 'ADD TEXT (OPTIONAL)'
+            }
+            required={messageType != 'video' ? true : false}
+            name="text"
+          ></textarea>
+        </div>
 
         <div className="">
           <button
