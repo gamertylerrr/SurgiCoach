@@ -34,6 +34,7 @@ const sampleData = [
 
 export default function EditProcedure() {
   const [messages, setMessages] = useState();
+  const [procedure, setProcedure] = useState('');
   const [error, setError] = useState();
   const { id } = useParams();
   const getMessages = async () => {
@@ -53,7 +54,9 @@ export default function EditProcedure() {
     }
   };
 
-  useEffect(() => {
+  useEffect(async () => {
+    const response = await db.collection('procedures').doc(id).get();
+    setProcedure(response.data());
     getMessages();
   }, []);
 
@@ -64,7 +67,7 @@ export default function EditProcedure() {
         <div className="flex flex-row items-center md:ml-6 mb-8">
           <p className="font-black text-xl uppercase">My Procedure</p>
           <div className="preview-box py-2  mx-4 md:px-20 px-4">
-            <p className="text-center">ACL</p>
+            <p className="text-center">{procedure.name}</p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 ">

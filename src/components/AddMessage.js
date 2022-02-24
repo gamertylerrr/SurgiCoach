@@ -63,7 +63,7 @@ export default function AddMessage({ getMessages }) {
 
   return (
     <div className="text-center mx-auto">
-      <p className="font-black text-xl uppercase mb-6">
+      <p className="font-black text-xl uppercase">
         Add new message for this procedure
       </p>
       <form action="" id="message-form" onSubmit={handleMessages}>
