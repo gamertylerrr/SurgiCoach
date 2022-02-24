@@ -60,7 +60,7 @@ export default function EditProcedure() {
   return (
     <div className="custom-login-bg relative ">
       <Header />
-      <div className="container mx-auto w-4/5 md:w-11/12 lg:w-45 ">
+      <div className="container mx-auto w-4/5 md:w-11/12 lg:w-45  ">
         <div className="flex flex-row items-center md:ml-6 mb-8">
           <p className="font-black text-xl uppercase">My Procedure</p>
           <div className="preview-box py-2  mx-4 md:px-20 px-4">
@@ -85,8 +85,8 @@ export default function EditProcedure() {
                 ))}
             </div>
           </div>
-          <div className="hidden md:block">
-            <AddMessage />
+          <div className="hidden md:block ">
+            <AddMessage getMessages={getMessages} />
           </div>
         </div>
       </div>
