@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Modal from 'react-modal';
+import { db } from '../firebase';
 
 const customStyles = {
   content: {
@@ -24,6 +25,21 @@ export default function Message({ data, setError, getMessages, index }) {
   function closeModal() {
     setIsOpen(false);
   }
+
+  const handleDelete = () => {
+    openModal();
+  };
+
+  const confirmDelete = async () => {
+    console.log(data);
+    try {
+      await db.collection('messages').doc(data.id).delete();
+      getMessages();
+      closeModal();
+    } catch {
+      setError('Failed to Delete procedure');
+    }
+  };
   return (
     <>
       <div className="message-wrapper p-2">
@@ -37,7 +53,7 @@ export default function Message({ data, setError, getMessages, index }) {
             </button>
             <button
               className="secondary-btn py-0 px-3 md:px-4 mx-2 text-center text-white"
-              onClick={openModal}
+              onClick={handleDelete}
             >
               Delete
             </button>
@@ -61,7 +77,10 @@ export default function Message({ data, setError, getMessages, index }) {
           ARE YOU SURE YOU WANT TO DELETE?
         </p>
         <div className="flex justify-center mt-4">
-          <button className="uppercase confirm-btn w-24 py-1 rounded-md">
+          <button
+            className="uppercase confirm-btn w-24 py-1 rounded-md"
+            onClick={confirmDelete}
+          >
             YES
           </button>
           <button
