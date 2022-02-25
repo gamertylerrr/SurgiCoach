@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 
-export default function AddMessage({ getMessages }) {
+export default function AddMessage({ getMessages, procedure }) {
   const [messageType, setMessageType] = useState();
   const [file, setFile] = useState('');
   const [error, setError] = useState('');
   const { currentUser } = useAuth();
 
   const handleFile = (e) => {
+    console.log('clicked');
     const uploadedFile = e.target.files[0];
     console.log(uploadedFile);
     setFile(uploadedFile);
@@ -21,13 +22,8 @@ export default function AddMessage({ getMessages }) {
 
   const handleMessages = async (e) => {
     e.preventDefault();
-    const procedureForm = document.querySelector('#message-form');
+    const messageForm = document.querySelector('#message-form');
     try {
-      const procedure = await db.collection('procedures').add({
-        name: procedureForm['name'].value,
-        provider: currentUser.uid,
-      });
-      console.log(procedure.id);
       if (file) {
         const storage = getStorage();
         const fileRef = ref(storage, file.name);
@@ -37,27 +33,30 @@ export default function AddMessage({ getMessages }) {
             console.log(url);
             db.collection('messages').add({
               type: messageType,
-              days: procedureForm['days'].value,
-              isBefore: procedureForm['isBefore'].value,
+              days: messageForm['days'].value,
+              isBefore: messageForm['isBefore'].value,
               videoUrl: url,
               procedure: procedure.id,
+              text: messageForm['text'].value,
             });
+            getMessages();
           });
         });
-        getMessages();
+
         return;
       }
       console.log('no file');
+      console.log(procedure.id);
       db.collection('messages').add({
-        type: messageType,
-        days: procedureForm['days'].value,
-        isBefore: procedureForm['isBefore'].value,
-        text: procedureForm['text'].value,
         procedure: procedure.id,
+        type: messageType,
+        days: messageForm['days'].value,
+        isBefore: messageForm['isBefore'].value,
+        text: messageForm['text'].value,
       });
       getMessages();
     } catch {
-      setError('Failed to Add Procedure');
+      setError('Failed to Add message');
     }
   };
 
@@ -68,7 +67,7 @@ export default function AddMessage({ getMessages }) {
           {/* <input
             type="text"
             className="custom-input m-2 px-6 py-2 text-center"
-            placeholder="procedure name"
+            placeholder="message name"
             name="name"
           /> */}
           <select
@@ -101,16 +100,18 @@ export default function AddMessage({ getMessages }) {
         </div>
 
         <div className="custom-input my-2 px-6 py-2">
-          <label for="files" class="btn">
+          <label for="video" class="btn">
             {file ? file.name : null}
-            {!file && messageType == 'video'
+            {messageType == 'video' && !file
               ? 'UPLOAD VIDEO'
-              : 'UPLOAD VIDEO (OPTIONAL)'}
+              : !file
+              ? 'UPLOAD VIDEO (OPTIONAL)'
+              : null}
           </label>
           <input
             id="video"
             className="hidden"
-            type="file "
+            type="file"
             onChange={handleFile}
             required={messageType == 'video' ? true : false}
           />

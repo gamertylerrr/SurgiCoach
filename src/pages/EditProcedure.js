@@ -56,7 +56,9 @@ export default function EditProcedure() {
 
   useEffect(async () => {
     const response = await db.collection('procedures').doc(id).get();
-    setProcedure(response.data());
+    let obj = response.data();
+    obj.id = response.id;
+    setProcedure(obj);
     getMessages();
   }, []);
 
@@ -94,7 +96,7 @@ export default function EditProcedure() {
             </div>
           </div>
           <div className="hidden md:block ">
-            <AddMessage getMessages={getMessages} />
+            <AddMessage getMessages={getMessages} procedure={procedure} />
           </div>
         </div>
       </div>
