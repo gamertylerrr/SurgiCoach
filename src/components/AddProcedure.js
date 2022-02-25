@@ -102,7 +102,7 @@ export default function AddProcedure({ getProcedures }) {
           </select>
         </div>
         <div className="custom-input my-2 px-6 py-2">
-          <label for="files" class="btn">
+          <label for="video" class="btn">
             {file ? file.name : null}
             {!file && messageType == 'video'
               ? 'UPLOAD VIDEO'
