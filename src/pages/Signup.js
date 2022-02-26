@@ -48,6 +48,7 @@ export default function Signup() {
             specialty: signupForm['specialty'].value,
             state: signupForm['state'].value,
             photoUrl: url,
+            isVerified: false,
           });
           history.push('/dashboard');
         });
