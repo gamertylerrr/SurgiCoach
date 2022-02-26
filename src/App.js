@@ -15,7 +15,7 @@ import Signup from './pages/Signup';
 
 function App() {
   return (
-    <Router basename="/SurgiCoach">
+    <Router>
       <AuthProvider>
         <Switch>
           <Route path="/login" component={Login} />
