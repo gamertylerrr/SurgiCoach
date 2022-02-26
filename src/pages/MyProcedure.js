@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AddProcedure from '../components/AddProcedure';
 import Header from '../components/Header';
 import Procedure from '../components/Procedure';
+import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 
 const sampleData = [
@@ -67,8 +68,12 @@ const sampleData = [
 export default function MyProcedure() {
   const [procedures, setProcedures] = useState();
   const [error, setError] = useState('');
+  const { currentUser } = useAuth();
   const getProcedures = async () => {
-    const response = await db.collection('procedures').get();
+    const response = await db
+      .collection('procedures')
+      .where('provider', '==', currentUser.uid)
+      .get();
     if (!response.empty) {
       let arr = [];
       response.forEach((doc) => {
@@ -79,7 +84,7 @@ export default function MyProcedure() {
       setProcedures(arr);
     }
   };
-  useEffect(async () => {
+  useEffect(() => {
     getProcedures();
   }, []);
 

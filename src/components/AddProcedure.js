@@ -101,22 +101,24 @@ export default function AddProcedure({ getProcedures }) {
             <option value={false}>After Procedure</option>
           </select>
         </div>
+
         <div className="custom-input my-2 px-6 py-2">
           <label for="video" class="btn">
             {file ? file.name : null}
-            {!file && messageType == 'video'
+            {messageType === 'video' && !file
               ? 'UPLOAD VIDEO'
-              : 'UPLOAD VIDEO (OPTIONAL)'}
+              : !file
+              ? 'UPLOAD VIDEO (OPTIONAL)'
+              : null}
           </label>
           <input
             id="video"
             className="hidden"
-            type="file "
+            type="file"
             onChange={handleFile}
-            required={messageType == 'video' ? true : false}
+            required={messageType === 'video' ? true : false}
           />
         </div>
-
         <div className="flex flex-col items-center justify-between">
           <textarea
             name=""
@@ -125,9 +127,9 @@ export default function AddProcedure({ getProcedures }) {
             rows="10"
             className="custom-input m-2 px-6 py-2"
             placeholder={
-              messageType == 'text' ? 'ADD TEXT' : 'ADD TEXT (OPTIONAL)'
+              messageType === 'text' ? 'ADD TEXT' : 'ADD TEXT (OPTIONAL)'
             }
-            required={messageType != 'video' ? true : false}
+            required={messageType !== 'video' ? true : false}
             name="text"
           ></textarea>
         </div>
