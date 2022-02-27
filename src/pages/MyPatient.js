@@ -1,13 +1,57 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import { useHistory } from 'react-router-dom';
 import Chart from '../components/Chart';
 import Header from '../components/Header';
+import { useAuth } from '../context/AuthContext';
+import { db } from '../firebase';
 
 export default function MyPatient() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [procedures, setProcedures] = useState();
   const history = useHistory();
+  const { currentUser } = useAuth();
+
+  const getProcedures = async () => {
+    let arr = [];
+    let procedureArr = [];
+    let dataObject = {};
+    const response = await db
+      .collection('procedures')
+      .where('provider', '==', currentUser.uid)
+      .get();
+    if (!response.empty) {
+      response.forEach((doc) => {
+        dataObject = doc.data();
+        dataObject.procedureId = doc.id;
+        procedureArr.push(dataObject);
+      });
+      setProcedures(procedureArr);
+    }
+    // get all the patients per procedure
+    for await (const content of procedureArr.map((procedure) => {
+      return db
+        .collection('patients')
+        .where('procedure', '==', procedure.procedureId)
+        .get();
+    })) {
+      if (!content.empty) {
+        content.forEach((doc) => {
+          let patientArr = [];
+          let obj = doc.data();
+          obj.id = doc.id;
+          patientArr.push(obj);
+          dataObject.patients = patientArr;
+          console.log(dataObject);
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    getProcedures();
+  }, []);
 
   return (
     <div className="custom-login-bg relative ">
