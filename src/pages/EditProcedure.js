@@ -73,7 +73,7 @@ export default function EditProcedure() {
               <p className="text-center">{procedure.name}</p>
             </div>
           </div>
-          <p className="font-black text-xl uppercase mr-10">
+          <p className="font-black text-xl uppercase mr-10 hidden md:block">
             Add new message for this procedure
           </p>
         </div>
@@ -95,7 +95,10 @@ export default function EditProcedure() {
                 ))}
             </div>
           </div>
-          <div className="hidden md:block ">
+          <div className=" md:block ">
+            <p className="font-black text-base uppercase md:hidden text-center my-4 ">
+              Add new message for this procedure
+            </p>
             <AddMessage getMessages={getMessages} procedure={procedure} />
           </div>
         </div>
