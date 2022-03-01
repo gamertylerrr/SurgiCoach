@@ -111,7 +111,7 @@ export default function MyProcedure() {
                 ))}
             </div>
           </div>
-          <div className="hidden md:block">
+          <div className="mt-6 md:mt-0">
             <AddProcedure getProcedures={getProcedures} />
           </div>
         </div>

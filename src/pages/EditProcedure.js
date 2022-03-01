@@ -95,7 +95,7 @@ export default function EditProcedure() {
                 ))}
             </div>
           </div>
-          <div className=" md:block ">
+          <div className="">
             <p className="font-black text-base uppercase md:hidden text-center my-4 ">
               Add new message for this procedure
             </p>
