@@ -1,7 +1,7 @@
 import React from 'react';
 import charts from '../assets/Group 14.svg';
 
-export default function Chart() {
+export default function Chart({ procedures }) {
   return (
     <div>
       <div className="flex justify-around">
@@ -9,10 +9,21 @@ export default function Chart() {
         <select
           name=""
           id=""
-          placeholder="procedure"
+          placeholder="procedures"
           className="uppercase custom-border rounded-md py-1 px-4"
         >
-          <option value="">procedure</option>
+          {procedures && (
+            <>
+              <option value="" disabled selected>
+                PROCEDURES
+              </option>
+              {procedures.map((procedure, index) => (
+                <option value={procedure.name} key={index}>
+                  {procedure.name}
+                </option>
+              ))}
+            </>
+          )}
         </select>
       </div>
       <img src={charts} alt="" className="mt-8" />

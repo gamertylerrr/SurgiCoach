@@ -10,43 +10,55 @@ export default function MyPatient() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [procedures, setProcedures] = useState();
+  const [pageData, setPageData] = useState();
   const history = useHistory();
   const { currentUser } = useAuth();
 
   const getProcedures = async () => {
     let arr = [];
     let procedureArr = [];
-    let dataObject = {};
+
     const response = await db
       .collection('procedures')
       .where('provider', '==', currentUser.uid)
       .get();
+
     if (!response.empty) {
       response.forEach((doc) => {
-        dataObject = doc.data();
-        dataObject.procedureId = doc.id;
-        procedureArr.push(dataObject);
+        let procedureObject = {};
+        procedureObject = doc.data();
+        procedureObject.procedureId = doc.id;
+        procedureArr.push(procedureObject);
       });
       setProcedures(procedureArr);
     }
-    // get all the patients per procedure
-    for await (const content of procedureArr.map((procedure) => {
-      return db
+
+    for (let procedure of procedureArr) {
+      console.log(procedure);
+      const patients = await db
         .collection('patients')
         .where('procedure', '==', procedure.procedureId)
         .get();
-    })) {
-      if (!content.empty) {
-        content.forEach((doc) => {
-          let patientArr = [];
-          let obj = doc.data();
-          obj.id = doc.id;
-          patientArr.push(obj);
-          dataObject.patients = patientArr;
-          console.log(dataObject);
+      console.log(patients.empty);
+
+      if (!patients.empty) {
+        let patientsArr = [];
+        patients.forEach((patient) => {
+          console.log(patient.data());
+          let patientObject = patient.data();
+          patientObject.patientId = patient.id;
+          patientsArr.push(patientObject);
         });
+        procedure.patients = patientsArr;
+        arr.push(procedure);
+        console.log(arr);
+      } else {
+        procedure.patients = [];
+        arr.push(procedure);
+        console.log(arr);
       }
     }
+    setPageData(arr);
   };
 
   useEffect(() => {
@@ -84,18 +96,16 @@ export default function MyPatient() {
               </p>
               <table className="w-36">
                 <tbody>
-                  <tr>
-                    <td>ACL</td>
-                    <td>110</td>
-                  </tr>
-                  <tr>
-                    <td>ACL</td>
-                    <td>110</td>
-                  </tr>
-                  <tr>
-                    <td>ACL</td>
-                    <td>110</td>
-                  </tr>
+                  {pageData && (
+                    <>
+                      {pageData.map((data, index) => (
+                        <tr key={index} className="uppercase">
+                          <td>{data.name}</td>
+                          <td>{data.patients.length}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -113,7 +123,7 @@ export default function MyPatient() {
             </div>
           </div>
           <div className="col-span-3">
-            <Chart />
+            <Chart procedures={procedures} />
           </div>
         </div>
       </div>
