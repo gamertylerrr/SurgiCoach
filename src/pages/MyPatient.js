@@ -115,7 +115,7 @@ export default function MyPatient() {
             <div className="flex justify-center my-8 ">
               <button
                 type="submit"
-                className="custom-btn text-white  py-2 uppercase "
+                className="custom-btn text-white  py-2  uppercase "
                 onClick={() => history.push('/myprocedure')}
               >
                 My procedures
