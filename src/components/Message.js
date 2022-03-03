@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Modal from 'react-modal';
 import { db } from '../firebase';
@@ -84,6 +84,7 @@ export default function Message({ data, setError, getMessages, index }) {
       setError('Failed to Delete procedure');
     }
   };
+
   return (
     <>
       <div className="message-wrapper p-2">
@@ -108,7 +109,8 @@ export default function Message({ data, setError, getMessages, index }) {
         </div>
         <div>
           <p className="mb-2 text-lg">
-            {data.days} DAYS {data.isBefore ? 'BEFORE' : 'AFTER'} PROCEDURE
+            {data.days} DAYS {data.isBefore === 'true' ? 'BEFORE' : 'AFTER'}{' '}
+            PROCEDURE
           </p>
           {data.type == 'video' && <video src={data.videoUrl}></video>}
           {data.type == 'text' && <p className="text-base">{data.text}</p>}
