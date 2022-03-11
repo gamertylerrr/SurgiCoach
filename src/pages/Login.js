@@ -3,6 +3,7 @@ import { useHistory, Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { useAuth } from '../context/AuthContext';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 export default function Login() {
   const history = useHistory();
@@ -10,6 +11,7 @@ export default function Login() {
   const passwordRef = useRef();
   const { currentUser, login } = useAuth();
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (currentUser) {
@@ -19,11 +21,14 @@ export default function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await login(emailRef.current.value, passwordRef.current.value);
+      setLoading(false);
       history.push('/myprocedure');
     } catch {
       setError('Failed to login');
+      setLoading(false);
     }
   };
 
@@ -34,42 +39,47 @@ export default function Login() {
         <div>
           <p className="font-black text-xl uppercase mb-8">PROVIDER LOGIN</p>
           {error && <p>{error}</p>}
-          <form action="" id="login-form" onSubmit={handleLogin}>
-            <div className="flex flex-col items-center justify-between">
-              <input
-                type="email"
-                className="custom-input m-2 px-6 py-2"
-                placeholder="email"
-                ref={emailRef}
-                required
-              />
-              <input
-                type="password"
-                className="custom-input m-2 px-6 py-2"
-                placeholder="password"
-                ref={passwordRef}
-                required
-              />
+          <ClipLoader color={'blue'} loading={loading} size={130} />
+          {!loading && (
+            <>
+              <form action="" id="login-form" onSubmit={handleLogin}>
+                <div className="flex flex-col items-center justify-between">
+                  <input
+                    type="email"
+                    className="custom-input m-2 px-6 py-2"
+                    placeholder="email"
+                    ref={emailRef}
+                    required
+                  />
+                  <input
+                    type="password"
+                    className="custom-input m-2 px-6 py-2"
+                    placeholder="password"
+                    ref={passwordRef}
+                    required
+                  />
+                  <button
+                    type="submit"
+                    className="custom-btn text-white m-2 px-6 py-2"
+                  >
+                    LOGIN
+                  </button>
+                  <Link to="/reset" className="underline">
+                    Forgot Password ?
+                  </Link>
+                </div>
+              </form>
+              <p className="font-black text-xl uppercase mt-8">NEW PROVIDER</p>
               <button
-                type="submit"
-                className="custom-btn text-white m-2 px-6 py-2"
+                className="custom-btn text-white  px-6 py-2"
+                onClick={() => {
+                  history.push('/signup');
+                }}
               >
-                LOGIN
+                SIGN UP
               </button>
-              <Link to="/reset" className="underline">
-                Forgot Password ?
-              </Link>
-            </div>
-          </form>
-          <p className="font-black text-xl uppercase mt-8">NEW PROVIDER</p>
-          <button
-            className="custom-btn text-white  px-6 py-2"
-            onClick={() => {
-              history.push('/signup');
-            }}
-          >
-            SIGN UP
-          </button>
+            </>
+          )}
         </div>
       </div>
       {/* <Footer /> */}
