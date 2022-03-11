@@ -123,7 +123,7 @@ export default function MyPatient() {
             </div>
           </div>
           <div className="col-span-3">
-            <Chart procedures={procedures} />
+            {procedures && <Chart procedures={procedures} />}
           </div>
         </div>
       </div>
