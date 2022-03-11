@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-
+import ClipLoader from 'react-spinners/ClipLoader';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -26,6 +26,7 @@ ChartJS.register(
 
 export default function Chart({ procedures }) {
   const [chartData, setChartData] = useState();
+  const [loading, setLoading] = useState(true);
 
   const options = {
     responsive: true,
@@ -110,6 +111,7 @@ export default function Chart({ procedures }) {
       labels,
       datasets: dataSet,
     });
+    setLoading(false);
   }, []);
 
   return (
@@ -136,6 +138,10 @@ export default function Chart({ procedures }) {
           )}
         </select>
       </div> */}
+      <div className="flex justify-center items-center">
+        <ClipLoader color={'blue'} loading={loading} size={130} />
+      </div>
+
       {chartData && <Line options={options} data={chartData} />}
     </div>
   );
