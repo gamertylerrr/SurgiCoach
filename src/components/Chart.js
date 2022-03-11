@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 
 import {
@@ -25,6 +25,8 @@ ChartJS.register(
 );
 
 export default function Chart({ procedures }) {
+  const [chartData, setChartData] = useState();
+
   const options = {
     responsive: true,
     plugins: {
@@ -86,22 +88,28 @@ export default function Chart({ procedures }) {
       let obj = {};
       console.log(procedure.procedureId, procedure.name);
       for (let label of labels) {
-        console.log(label);
+        // console.log(label);
         const response = await db
           .collection('patients')
           .where('procedure', '==', procedure.procedureId)
           .where('date', '>=', moment().month(label).startOf('month').toDate())
           .where('date', '<=', moment().month(label).endOf('month').toDate())
           .get();
-        console.log(response.size);
+        // console.log(response.size);
         dataArr.push(response.size);
       }
+      const randomColor = [1, 2, 3].map((x) => (Math.random() * 256) | 0);
       obj.label = procedure.name;
+      obj.borderColor = `rgba(${randomColor} , 1)`;
+      obj.backgroundColor = `rgba(${randomColor} , 0.5)`;
       obj.data = dataArr;
       console.log(obj);
       dataSet.push(obj);
     }
-    console.log(dataSet);
+    setChartData({
+      labels,
+      datasets: dataSet,
+    });
   }, []);
 
   return (
@@ -128,7 +136,7 @@ export default function Chart({ procedures }) {
           )}
         </select>
       </div>
-      <Line options={options} data={data} />
+      {chartData && <Line options={options} data={chartData} />}
     </div>
   );
 }
