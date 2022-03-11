@@ -72,7 +72,7 @@ export default function MyPatient() {
         <div className="grid grid-cols-1 md:grid-cols-5 md:gap-12 ">
           <div className="col-span-2">
             <p className="font-black text-xl uppercase ">My patients</p>
-            <div
+            {/* <div
               className="flex items-center py-4 "
               style={{ borderBottom: '1px solid #2b426a' }}
             >
@@ -89,7 +89,7 @@ export default function MyPatient() {
                   className="text-center custom-border lg:mx-2 rounded-md py-1 w-32 my-2 lg:my-0"
                 />
               </div>
-            </div>
+            </div> */}
             <div className="py-4" style={{ borderBottom: '1px solid #2b426a' }}>
               <p className="font-black text-base uppercase ">
                 # OF PATIENTS BY PROCEDURE:

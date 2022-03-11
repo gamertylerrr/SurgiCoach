@@ -114,7 +114,7 @@ export default function Chart({ procedures }) {
 
   return (
     <div>
-      <div className="flex justify-around">
+      {/* <div className="flex justify-around">
         <p className="font-black text-base uppercase ">total</p>
         <select
           name=""
@@ -135,7 +135,7 @@ export default function Chart({ procedures }) {
             </>
           )}
         </select>
-      </div>
+      </div> */}
       {chartData && <Line options={options} data={chartData} />}
     </div>
   );
