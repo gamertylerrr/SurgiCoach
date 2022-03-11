@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import charts from '../assets/Group 14.svg';
+import moment from 'moment';
 
 import {
   Chart as ChartJS,
@@ -71,18 +71,37 @@ export default function Chart({ procedures }) {
   };
 
   useEffect(async () => {
-    console.log(procedures);
+    // console.log(procedures[1].procedureId, procedures[1].name);
+    // const test = await db
+    //   .collection('patients')
+    //   .where('procedure', '==', procedures[1].procedureId)
+    //   .where('date', '>=', moment().month('August').startOf('month').toDate())
+    //   .where('date', '<=', moment().month('August').endOf('month').toDate())
+    //   .get();
+    // console.log(test.size);
+
+    let dataSet = [];
     for (let procedure of procedures) {
+      let dataArr = [];
+      let obj = {};
+      console.log(procedure.procedureId, procedure.name);
+      for (let label of labels) {
+        console.log(label);
+        const response = await db
+          .collection('patients')
+          .where('procedure', '==', procedure.procedureId)
+          .where('date', '>=', moment().month(label).startOf('month').toDate())
+          .where('date', '<=', moment().month(label).endOf('month').toDate())
+          .get();
+        console.log(response.size);
+        dataArr.push(response.size);
+      }
+      obj.label = procedure.name;
+      obj.data = dataArr;
+      console.log(obj);
+      dataSet.push(obj);
     }
-    const response = await db
-      .collection('patients')
-      .where('date', '>=', new Date('2022-01-01'))
-      .get();
-    if (!response.empty) {
-      response.forEach((doc) => {
-        console.log(doc.id);
-      });
-    }
+    console.log(dataSet);
   }, []);
 
   return (

@@ -34,28 +34,28 @@ export default function MyPatient() {
     }
 
     for (let procedure of procedureArr) {
-      console.log(procedure);
+      // console.log(procedure);
       const patients = await db
         .collection('patients')
         .where('procedure', '==', procedure.procedureId)
         .get();
-      console.log(patients.empty);
+      // console.log(patients.empty);
 
       if (!patients.empty) {
         let patientsArr = [];
         patients.forEach((patient) => {
-          console.log(patient.data());
+          // console.log(patient.data());
           let patientObject = patient.data();
           patientObject.patientId = patient.id;
           patientsArr.push(patientObject);
         });
         procedure.patients = patientsArr;
         arr.push(procedure);
-        console.log(arr);
+        // console.log(arr);
       } else {
         procedure.patients = [];
         arr.push(procedure);
-        console.log(arr);
+        // console.log(arr);
       }
     }
     setPageData(arr);
